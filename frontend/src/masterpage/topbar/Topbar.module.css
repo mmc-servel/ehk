@@ -23,3 +23,15 @@
    font-size: 1.5em;  
    width: 25%;
 }  
+
+@media screen and (max-width: 600px) {
+   .div1{
+      display: none;
+   }
+   .div2{
+      flex-flow: column;
+   }
+   .top_bar{
+      flex-flow: column;
+   }   
+}
