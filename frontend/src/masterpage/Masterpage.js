@@ -1,12 +1,12 @@
 import css from "./Masterpage.module.css"
 import Topbar from "./topbar/Topbar"
 
-function Masterpage() {
+function Masterpage(props) {
     return (
     <div>
       <Topbar/>
       <div className={css.content}>
-        <div className={css.login}></div>
+           {props.children}
       </div>
     </div>
   );

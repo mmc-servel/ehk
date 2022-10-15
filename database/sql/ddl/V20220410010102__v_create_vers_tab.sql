@@ -24,3 +24,5 @@ create table item_hierarchy(item_hierarchy_id serial constraint  item_hierarchy_
                             constraint item_hierarchy_item_id_fk foreign key(item_id) references items(item_id),
                             constraint item_hierarchy_parent_fk foreign key(parent_item_id) references item_hierarchy(item_hierarchy_id)
                            );
+
+create table sec_accounts (username varchar(100),password varchar(30));
