@@ -4,6 +4,6 @@
 pwd
 echo $1
 cd $1
-npm install npm start
+npm install
 npm run build
 
