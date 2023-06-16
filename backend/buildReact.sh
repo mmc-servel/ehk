@@ -10,5 +10,6 @@ export PATH=$PATH:$HOME/bin:$M2:$JAVA_HOME/bin
 pwd
 echo $1
 cd $1
+npm install npm start
 npm run build
 
