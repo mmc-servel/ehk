@@ -1,41 +1,65 @@
 package com.mmc.db;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.json.*;
 
-public class DB {
+public class Db {
+    
+    Connection conn;
+    //TO DO: Use connection pooling.
 
-    public String runAction(String actionName, String sessionid, JSONObject json) {
-        String arguments = "p_sessionid=>?,";
-        JSONArray key = json.names();
-        for (int i = 0; i < key.length(); ++i) {
-            arguments = arguments + "p_" + key.getString(i) + "=>?,";
+    public String getSessionID(String username, String password) throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123");
+        PreparedStatement pstmt = conn.prepareStatement("SELECT gen_random_uuid() from accounts where email=? and pwd_hash=?");
+        pstmt.setString(1, username);
+        pstmt.setString(2, password);
+        ResultSet rs = pstmt.executeQuery();
+        String sessionID = null;
+        if (rs.next()) {
+            sessionID = rs.getString(1);
         }
-        arguments = arguments.substring(0, arguments.length() - 1);//remove last comma
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            try ( Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/ehk", "ehk", "POIqwe#123");  
-                    CallableStatement dbFunction = conn.prepareCall("{ ? = call " + actionName + "(" + arguments + ") }")) {
-                dbFunction.registerOutParameter(1, Types.VARCHAR);
-                dbFunction.setString(2, sessionid);
-                for (int i = 0; i < key.length(); ++i) {                    
-                    String keys = key.getString(i);
-                    dbFunction.setString(i + 3, json.getString(keys));
-                }
-                dbFunction.execute();
-                return dbFunction.getString(1);
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DB.class.getName()).log(Level.SEVERE, null, ex);
-            return "{\"responce\":\"ERROR\",\"message\":\"Generic error (checl application logs).\"}";
-        }
+        conn.close();
+        return sessionID;
     }
-
+    
+    public String getProductTable() throws ClassNotFoundException, SQLException {
+        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/user1", "user1", "user1");
+        //PreparedStatement pstmt = conn.prepareStatement("SELECT product_id,name,description,category,mesure_unit,quantity,price,created_on,updated_on from products");
+        PreparedStatement pstmt = conn.prepareStatement("SELECT product_id,name,description,quantity,price from products");
+        ResultSet rs = pstmt.executeQuery();
+        ResultSetMetaData rsmd = rs.getMetaData();
+        String productTable = "";
+        while (rs.next()) {
+            String rowLine = "";
+            for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                rowLine = rowLine + "\"" + rsmd.getColumnName(i) + "\":\"" + rs.getString(rsmd.getColumnName(i)) + "\",";
+            }
+            productTable = productTable + "{" + rowLine.substring(0, rowLine.length() - 1) + "},";
+        }
+        if (productTable.endsWith(",")) {//remove last "," if it exists (it doesn't exists in case no rows returns)
+            productTable = productTable.substring(0, productTable.length() - 1);            
+        }
+        productTable = "[" + productTable + "]";
+        conn.close();
+        return productTable;
+    }
+    
+    public void deleteProduct(int product_id) throws SQLException {
+        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/user1", "user1", "user1");
+        PreparedStatement pstmt = conn.prepareStatement("delete from products where product_id=?");
+        pstmt.setInt(1, product_id);
+        int nrOfRowsAffected = pstmt.executeUpdate();
+        if (nrOfRowsAffected > 0) {
+            System.out.println("    product_id=" + product_id + " deleted");
+        } else {
+            System.out.println("    No rows deleted (this should nevere happen).");
+        }
+        conn.close();
+        
+    }
 }
