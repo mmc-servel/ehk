@@ -26,3 +26,6 @@ create table item_hierarchy(item_hierarchy_id serial constraint  item_hierarchy_
                            );
 
 create table sec_accounts (username varchar(100),password varchar(30));
+
+
+insert into sec_accounts values('qqq','qqq');

@@ -26,8 +26,13 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.0</version>
+            <version>42.2.6</version>
         </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-maven-plugin</artifactId>
+            <version>8.5.8</version>
+        </dependency>        
     </dependencies>
             
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -46,7 +51,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <!-- ++++++++++ -->
+            <!-- ++++++++++ |buildReact.cmd foe Windows| buildReact.sh for Linux| -->
             <plugin>
                 <artifactId>exec-maven-plugin</artifactId>
                 <groupId>org.codehaus.mojo</groupId>
@@ -59,7 +64,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>buildReact.sh</executable>
+                            <executable>buildReact.cmd</executable>
                             <arguments>
                                 <argument>${basedir}/../frontend</argument>
                             </arguments>                                                         
@@ -74,7 +79,7 @@
                 <version>3.2.0</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>copy-frontend</id>
                         <!-- here the phase you need -->
                         <phase>validate</phase>
                         <goals>
@@ -96,6 +101,24 @@
                             </resources>              
                         </configuration>            
                     </execution>
+                    
+                    <execution>
+                        <id>copy-flyway</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources/WEB-INF/flyway</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../database/sql/</directory>                                    
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution>                       
                 </executions>
             </plugin>   
             <!-- ++++++++++ --> 

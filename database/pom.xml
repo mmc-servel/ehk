@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.4.1212</version>
+            <version>42.2.6</version>
         </dependency>
     </dependencies>  
         
@@ -29,8 +29,8 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.5.8</version>
                 <configuration>
-                    <url> jdbc:postgresql://localhost:5432/ehk</url>
-                    <user>ehk</user>
+                    <url> jdbc:postgresql://localhost:5432/housemanager</url>
+                    <user>housemanager</user>
                     <password>POIqwe#123</password>
                     <!--
                     <schemas>

@@ -42,6 +42,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.flywaydb.core.Flyway;
 
 public class MainClass {
     
@@ -55,7 +56,11 @@ public class MainClass {
         } else {
             is.close();
         }
-
+        //https://www.tabnine.com/code/java/methods/org.flywaydb.core.Flyway/configure
+        //Flyway flyway = Flyway.configure().dataSource(dataSource).locations("classpath:db/migration", "filesystem:db/migration").baselineOnMigrate(true).load();
+        Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123").locations("classpath:WEB-INF/flyway").load();
+        flyway.migrate();        
+        
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         //HttpsServer server = getHttpsServer(); //In case httpS protocol is wanted
         if (server == null) {
