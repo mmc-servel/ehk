@@ -94,9 +94,9 @@
                                 </resource>
                                 <resource>
                                     <directory>${basedir}/</directory>   
-                        <includes>
-                            <include>lig.keystore</include>
-                        </includes>
+                                    <includes>
+                                        <include>lig.keystore</include>
+                                    </includes>
                                 </resource>                                
                             </resources>              
                         </configuration>            
