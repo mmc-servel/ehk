@@ -3,7 +3,7 @@ package com.mmc.pages;
 import com.mmc.api.AAPIProcessor;
 import com.mmc.api.HTTPApiResponce;
 import com.mmc.backend.HTTPProcessor;
-import com.mmc.db.DB;
+import com.mmc.db.DB1;
 import com.mmc.db.Db;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class Login extends AAPIProcessor {
 
     @Override
     public HTTPApiResponce processRequest() throws UnsupportedEncodingException, IOException, ClassNotFoundException, SQLException {
-        DB db = new DB();
+        DB1 db = new DB1();
         JSONObject requestBodyJson=getrequestBodyString();
         return new HTTPApiResponce(db.runAction("sec_login", null, requestBodyJson));
 

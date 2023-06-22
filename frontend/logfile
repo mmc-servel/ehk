@@ -1,0 +1,85 @@
+2023-06-22 17:26:38.404 EEST [31428] LOG:  starting PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit
+2023-06-22 17:26:38.407 EEST [31428] LOG:  listening on IPv6 address "::1", port 5432
+2023-06-22 17:26:38.407 EEST [31428] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-06-22 17:26:38.453 EEST [40504] LOG:  database system was shut down at 2023-05-20 00:47:51 EEST
+2023-06-22 17:26:38.489 EEST [31428] LOG:  database system is ready to accept connections
+2023-06-22 17:28:08.738 EEST [43920] FATAL:  password authentication failed for user "ehk"
+2023-06-22 17:28:08.738 EEST [43920] DETAIL:  Role "ehk" does not exist.
+	Connection matched pg_hba.conf line 87: "host    all             all             127.0.0.1/32            scram-sha-256"
+2023-06-22 17:31:38.454 EEST [7464] LOG:  checkpoint starting: time
+2023-06-22 17:31:38.685 EEST [7464] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.205 s, sync=0.011 s, total=0.232 s; sync files=4, longest=0.005 s, average=0.003 s; distance=0 kB, estimate=0 kB
+2023-06-22 17:32:32.959 EEST [31428] LOG:  received fast shutdown request
+2023-06-22 17:32:32.962 EEST [31428] LOG:  aborting any active transactions
+2023-06-22 17:32:32.963 EEST [29260] FATAL:  terminating connection due to administrator command
+2023-06-22 17:32:32.963 EEST [23736] FATAL:  terminating connection due to administrator command
+2023-06-22 17:32:32.963 EEST [41292] FATAL:  terminating connection due to administrator command
+2023-06-22 17:32:32.980 EEST [31428] LOG:  background worker "logical replication launcher" (PID 25708) exited with exit code 1
+2023-06-22 17:32:32.981 EEST [7464] LOG:  shutting down
+2023-06-22 17:32:32.984 EEST [7464] LOG:  checkpoint starting: shutdown immediate
+2023-06-22 17:32:32.997 EEST [7464] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.017 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=0 kB
+2023-06-22 17:32:33.013 EEST [31428] LOG:  database system is shut down
+2023-06-22 17:32:36.722 EEST [3060] LOG:  starting PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit
+2023-06-22 17:32:36.726 EEST [3060] LOG:  listening on IPv6 address "::1", port 5432
+2023-06-22 17:32:36.726 EEST [3060] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-06-22 17:32:36.762 EEST [19292] LOG:  database system was shut down at 2023-06-22 17:32:32 EEST
+2023-06-22 17:32:36.781 EEST [3060] LOG:  database system is ready to accept connections
+2023-06-22 17:37:13.390 EEST [3060] LOG:  received fast shutdown request
+2023-06-22 17:37:13.394 EEST [3060] LOG:  aborting any active transactions
+2023-06-22 17:37:13.397 EEST [3060] LOG:  background worker "logical replication launcher" (PID 33140) exited with exit code 1
+2023-06-22 17:37:13.409 EEST [21980] LOG:  shutting down
+2023-06-22 17:37:13.412 EEST [21980] LOG:  checkpoint starting: shutdown immediate
+2023-06-22 17:37:13.431 EEST [21980] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.005 s, total=0.023 s; sync files=2, longest=0.003 s, average=0.003 s; distance=0 kB, estimate=0 kB
+2023-06-22 17:37:13.447 EEST [3060] LOG:  database system is shut down
+2023-06-22 17:37:17.112 EEST [43552] LOG:  starting PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit
+2023-06-22 17:37:17.112 EEST [43552] LOG:  listening on IPv6 address "::", port 5432
+2023-06-22 17:37:17.113 EEST [43552] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-06-22 17:37:17.151 EEST [19620] LOG:  database system was shut down at 2023-06-22 17:37:13 EEST
+2023-06-22 17:37:17.180 EEST [43552] LOG:  database system is ready to accept connections
+2023-06-22 17:37:32.672 EEST [43552] LOG:  received fast shutdown request
+2023-06-22 17:37:32.680 EEST [43552] LOG:  aborting any active transactions
+2023-06-22 17:37:32.686 EEST [43552] LOG:  background worker "logical replication launcher" (PID 39420) exited with exit code 1
+2023-06-22 17:37:32.694 EEST [41540] LOG:  shutting down
+2023-06-22 17:37:32.697 EEST [41540] LOG:  checkpoint starting: shutdown immediate
+2023-06-22 17:37:32.717 EEST [41540] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.005 s, total=0.023 s; sync files=2, longest=0.003 s, average=0.003 s; distance=0 kB, estimate=0 kB
+2023-06-22 17:37:32.723 EEST [43552] LOG:  database system is shut down
+2023-06-22 17:37:44.942 EEST [31256] LOG:  starting PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit
+2023-06-22 17:37:44.943 EEST [31256] LOG:  listening on IPv6 address "::", port 5432
+2023-06-22 17:37:44.943 EEST [31256] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-06-22 17:37:44.985 EEST [42820] LOG:  database system was shut down at 2023-06-22 17:37:32 EEST
+2023-06-22 17:37:45.017 EEST [31256] LOG:  database system is ready to accept connections
+2023-06-22 17:42:44.981 EEST [36652] LOG:  checkpoint starting: time
+2023-06-22 17:42:53.546 EEST [36652] LOG:  checkpoint complete: wrote 87 buffers (0.5%); 0 WAL file(s) added, 0 removed, 0 recycled; write=8.431 s, sync=0.121 s, total=8.566 s; sync files=57, longest=0.013 s, average=0.003 s; distance=300 kB, estimate=300 kB
+2023-06-22 17:43:04.970 EEST [28980] ERROR:  duplicate key value violates unique constraint "item_type_name_pk"
+2023-06-22 17:43:04.970 EEST [28980] DETAIL:  Key (type_name)=(block) already exists.
+2023-06-22 17:43:04.970 EEST [28980] STATEMENT:  INSERT INTO item_types
+	(type_name, charge_by, unit_price, valid_from, valid_until)
+	VALUES('block', 'unit', 0, to_date('01.01.2022','dd.mm.yyyy'), to_date('01.01.2100','dd.mm.yyyy'))
+2023-06-22 17:47:44.553 EEST [36652] LOG:  checkpoint starting: time
+2023-06-22 17:47:52.456 EEST [36652] LOG:  checkpoint complete: wrote 78 buffers (0.5%); 0 WAL file(s) added, 0 removed, 0 recycled; write=7.758 s, sync=0.114 s, total=7.903 s; sync files=53, longest=0.006 s, average=0.003 s; distance=364 kB, estimate=364 kB
+2023-06-22 17:51:33.874 EEST [27416] FATAL:  password authentication failed for user "ehk"
+2023-06-22 17:51:33.874 EEST [27416] DETAIL:  Role "ehk" does not exist.
+	Connection matched pg_hba.conf line 87: "host    all             all             0.0.0.0/0            scram-sha-256"
+2023-06-22 17:52:27.381 EEST [31256] LOG:  received fast shutdown request
+2023-06-22 17:52:27.384 EEST [22448] ERROR:  canceling statement due to user request
+2023-06-22 17:52:27.389 EEST [31256] LOG:  aborting any active transactions
+2023-06-22 17:52:27.390 EEST [33940] FATAL:  terminating connection due to administrator command
+2023-06-22 17:52:27.390 EEST [33884] FATAL:  terminating connection due to administrator command
+2023-06-22 17:52:27.391 EEST [37176] FATAL:  terminating connection due to administrator command
+2023-06-22 17:52:27.392 EEST [31256] LOG:  background worker "logical replication launcher" (PID 22448) exited with exit code 1
+2023-06-22 17:52:27.407 EEST [36652] LOG:  shutting down
+2023-06-22 17:52:27.410 EEST [36652] LOG:  checkpoint starting: shutdown immediate
+2023-06-22 17:52:27.465 EEST [36652] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.010 s, sync=0.022 s, total=0.059 s; sync files=8, longest=0.006 s, average=0.003 s; distance=0 kB, estimate=327 kB
+2023-06-22 17:52:27.484 EEST [31256] LOG:  database system is shut down
+2023-06-22 17:59:38.812 EEST [10704] LOG:  starting PostgreSQL 15.2, compiled by Visual C++ build 1914, 64-bit
+2023-06-22 17:59:38.813 EEST [10704] LOG:  listening on IPv6 address "::", port 5432
+2023-06-22 17:59:38.813 EEST [10704] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2023-06-22 17:59:38.857 EEST [40336] LOG:  database system was shut down at 2023-06-22 17:52:27 EEST
+2023-06-22 17:59:38.890 EEST [10704] LOG:  database system is ready to accept connections
+2023-06-22 18:02:38.151 EEST [25552] ERROR:  canceling statement due to user request
+2023-06-22 18:02:38.152 EEST [10704] LOG:  received fast shutdown request
+2023-06-22 18:02:38.159 EEST [10704] LOG:  aborting any active transactions
+2023-06-22 18:02:38.164 EEST [10704] LOG:  background worker "logical replication launcher" (PID 25552) exited with exit code 1
+2023-06-22 18:02:38.166 EEST [43632] LOG:  shutting down
+2023-06-22 18:02:38.169 EEST [43632] LOG:  checkpoint starting: shutdown immediate
+2023-06-22 18:02:38.332 EEST [43632] LOG:  checkpoint complete: wrote 102 buffers (0.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.019 s, sync=0.125 s, total=0.166 s; sync files=59, longest=0.004 s, average=0.003 s; distance=543 kB, estimate=543 kB
+2023-06-22 18:02:38.352 EEST [10704] LOG:  database system is shut down

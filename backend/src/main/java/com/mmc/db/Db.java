@@ -14,7 +14,7 @@ public class Db {
 
     public String getSessionID(String username, String password) throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
-        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/user1", "user1", "user1");
+        conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123");
         PreparedStatement pstmt = conn.prepareStatement("SELECT gen_random_uuid() from accounts where email=? and pwd_hash=?");
         pstmt.setString(1, username);
         pstmt.setString(2, password);

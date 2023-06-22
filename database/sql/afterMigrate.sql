@@ -1,3 +1,4 @@
+/*
 INSERT INTO item_types
 (type_name, charge_by, unit_price, valid_from, valid_until)
 VALUES('block', 'unit', 0, to_date('01.01.2022','dd.mm.yyyy'), to_date('01.01.2100','dd.mm.yyyy'));
@@ -27,3 +28,4 @@ VALUES('parcare', 'unit', 50, to_date('01.01.2022','dd.mm.yyyy'), to_date('01.01
 INSERT INTO items
 (item_type, is_billable, item_props,label)
 VALUES('block', 'N'::bpchar, '{"unit":"1"}','Bucuria10');
+*/
