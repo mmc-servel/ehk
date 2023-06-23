@@ -40,13 +40,22 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.flywaydb.core.Flyway;
+import org.json.JSONObject;
 
 public class MainClass {
     
     public static void main(String[] args) throws IOException {
+        //java -jar C:\work\NetBeansProjects\ehk\backend\target\backend-1.0.0-jar-with-dependencies.jar c:\work\config.json
+        if (args.length > 0) {
+            com.mmc.api.utils.Config.create(args[0]); //see file example on backend/config.json
+        } else {
+            System.out.print("Please provide config file-name as a parameter.");
+            System.exit(0);
+        }
 
         //just check if index file exists
         InputStream is = MainClass.class.getClassLoader().getResourceAsStream("WEB-INF/index.html");
@@ -59,9 +68,8 @@ public class MainClass {
         //https://www.tabnine.com/code/java/methods/org.flywaydb.core.Flyway/configure
         //Flyway flyway = Flyway.configure().dataSource(dataSource).locations("classpath:db/migration", "filesystem:db/migration").baselineOnMigrate(true).load();
         Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123").locations("classpath:WEB-INF/flyway").load();
-        flyway.migrate();        
-        
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        flyway.migrate();
+        HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(com.mmc.api.utils.Config.getValueByKey("port"))), 0);
         //HttpsServer server = getHttpsServer(); //In case httpS protocol is wanted
         if (server == null) {
             System.out.println("ERROR: Error creating the server. Check log file.");
@@ -73,10 +81,10 @@ public class MainClass {
         
         System.out.println("------END OF MAIN------");
     }
-      
+    
     public static HttpsServer getHttpsServer() {
         try {
-            System.out.println("Address="+InetAddress.getLocalHost().getHostAddress());
+            System.out.println("Address=" + InetAddress.getLocalHost().getHostAddress());
             // Set up the socket address
             InetSocketAddress address = new InetSocketAddress(InetAddress.getLocalHost(), 8000);
 
@@ -87,10 +95,9 @@ public class MainClass {
             // Initialise the keystore
             char[] password = "simulator".toCharArray();
             KeyStore ks = KeyStore.getInstance("JKS");
-
+            
             InputStream fis = MainClass.class.getClassLoader().getResourceAsStream("WEB-INF/lig.keystore");
             ks.load(fis, password);
-            
 
             // Set up the key manager factory
             KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
@@ -126,6 +133,6 @@ public class MainClass {
         } catch (IOException | KeyManagementException | KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException | CertificateException ex) {
             Logger.getLogger(HTTPProcessor.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }        
-    }    
+        }
+    }
 }
