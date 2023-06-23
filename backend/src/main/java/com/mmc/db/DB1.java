@@ -8,9 +8,10 @@ import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.*;
+import com.mmc.api.utils.Config;
 
 public class DB1 {
-
+//TO DO: Connection pooling
     public String runAction(String actionName, String sessionid, JSONObject json) {
         String arguments = "p_sessionid=>?,";
         JSONArray key = json.names();
@@ -21,7 +22,7 @@ public class DB1 {
 
         try {
             Class.forName("org.postgresql.Driver");
-            try ( Connection conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123");  
+            try ( Connection conn = DriverManager.getConnection(Config.getJson().getJSONObject("postgres").getString("conn_str"), Config.getJson().getJSONObject("postgres").getString("user"), Config.getJson().getJSONObject("postgres").getString("pass"));  
                     CallableStatement dbFunction = conn.prepareCall("{ ? = call " + actionName + "(" + arguments + ") }")) {
                 dbFunction.registerOutParameter(1, Types.VARCHAR);
                 dbFunction.setString(2, sessionid);

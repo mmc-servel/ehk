@@ -1,0 +1,11 @@
+{
+	"rdbms":"postgres",
+	"skip_migration":"true",
+	"port":"8000",
+	"https":"false",
+	"postgres":{
+		"conn_str":"jdbc:postgresql://192.168.0.10:5432/dbname",
+		"user":"the_user_name",
+		"pass":"password"
+	}	
+}
