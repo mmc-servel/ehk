@@ -1,13 +1,12 @@
 import cssmodule from "./HouseNavi.module.css";
 import GlobalCss from "../../../components/css/global.css";
+import { Link } from "react-router-dom";
 
 function HouseNavi(props) {
   return (
           <div className="div_block_area"  style={{width:"15%"}}> 
-            <p>  Bucuria 10 </p> 
-            <p>  Bucuria 10 </p> 
-            <p>  Bucuria 10 </p>
-            <p>  Bucuria 10 </p>
+            <p>  <Link to="/transations">MAIB Auth Report</Link> </p> 
+            <p>  <Link to="/merchants">Placeholder Report</Link> </p> 
           </div>
   );
 }

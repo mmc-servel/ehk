@@ -1,10 +1,10 @@
 
 package com.mmc.pages;
 
-import com.mmc.api.AAPIProcessor;
-import com.mmc.api.HTTPApiResponce;
-import com.mmc.backend.HTTPProcessor;
+import com.mmc.processors.AAPIProcessor;
 import com.mmc.db.Db;
+import com.mmc.responce.AResponce;
+import com.mmc.responce.StringResponce;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -18,10 +18,10 @@ public class Products extends AAPIProcessor {
     }
     
     @Override
-    public HTTPApiResponce processRequest() throws UnsupportedEncodingException, IOException, ClassNotFoundException, SQLException {
+    public AResponce processRequest() throws UnsupportedEncodingException, IOException, ClassNotFoundException, SQLException {
             JSONObject reqJsonObj= getrequestBodyString();
             Db db = new Db();
             String productTable = db.getProductTable();
-            return new HTTPApiResponce("OK", "Product table.", productTable);
+            return new StringResponce(t,"OK", "Product table.", productTable);
     }  
 }

@@ -32,7 +32,17 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
             <version>8.5.8</version>
-        </dependency>        
+        </dependency>    
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.6</version>
+        </dependency>    
+        <!--<dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>4.0.0</version>
+        </dependency> -->
     </dependencies>
             
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -48,7 +58,7 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>com.mmc.backend.MainClass</mainClass>
                         </manifest>
-                    </archive>
+                    </archive>                              
                 </configuration>
             </plugin>
             <!-- ++++++++++ |buildReact.cmd foe Windows| buildReact.sh for Linux| -->
@@ -118,7 +128,68 @@
                                 </resource>
                             </resources>              
                         </configuration>            
-                    </execution>                       
+                    </execution> 
+                    <execution>
+                        <id>copy-report</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources/WEB-INF/report/</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../reports/MyReports/</directory>                                    
+                                    <includes>
+                                        <include>AuthorizationHistory.jrxml</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution> 
+                    
+                    <execution>
+                        <id>copy-fonts1</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../reports/MyReports/</directory>                                    
+                                    <includes>
+                                        <include>jasperreports_extension.properties</include>
+                                    </includes>
+                                </resource>                              
+                            </resources>              
+                        </configuration>            
+                    </execution> 
+                    
+                    <execution>
+                        <id>copy-fonts2</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources/fonts</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../reports/MyReports/fonts/</directory>                                    
+                                    <includes>
+                                        <include>arialbd.ttf</include>
+                                    </includes>
+                                </resource>                              
+                            </resources>              
+                        </configuration>            
+                    </execution> 
+                                                             
+                                                              
                 </executions>
             </plugin>   
             <!-- ++++++++++ --> 

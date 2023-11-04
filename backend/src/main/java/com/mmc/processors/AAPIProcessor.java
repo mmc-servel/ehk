@@ -1,4 +1,4 @@
-package com.mmc.api;
+package com.mmc.processors;
 
 import com.sun.net.httpserver.HttpExchange;
 import java.io.BufferedReader;
@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import org.json.*;
 import com.mmc.api.utils.Convert;
+import com.mmc.backend.HTTPProcessor;
+import com.mmc.responce.AResponce;
+import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class AAPIProcessor {
 
@@ -16,7 +21,7 @@ public abstract class AAPIProcessor {
         this.t = t;
     }
 
-    abstract public HTTPApiResponce processRequest() throws Exception;
+    abstract public AResponce processRequest() throws Exception;
 
     protected JSONObject getrequestBodyString() throws UnsupportedEncodingException, IOException {
         InputStreamReader isr = new InputStreamReader(t.getRequestBody(), "utf-8");
@@ -30,5 +35,5 @@ public abstract class AAPIProcessor {
         isr.close();
         System.out.println("    RequestJSON="+buf.toString());
         return Convert.getInstance().stringToJson(buf.toString());
-    }
+    }    
 }

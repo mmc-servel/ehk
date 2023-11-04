@@ -4,7 +4,7 @@ import Topbar from "./topbar/Topbar"
 function Masterpage(props) {
     return (
     <div>
-      <Topbar/>
+      <Topbar sessionid={props.sessionid} logInText={props.logInText} logOut={props.logOut}/>
       <div className={css.content}>
            {props.children}
       </div>
