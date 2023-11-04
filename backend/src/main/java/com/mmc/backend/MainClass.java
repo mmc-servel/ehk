@@ -49,6 +49,7 @@ import org.json.JSONObject;
 public class MainClass {
     
     public static void main(String[] args) throws IOException {
+        //System.setProperty("log.name", "mkyong");
         //java -jar C:\work\NetBeansProjects\ehk\backend\target\backend-1.0.0-jar-with-dependencies.jar c:\work\config.json
         if (args.length > 0) {
             com.mmc.api.utils.Config.create(args[0]); //see file example on backend/config.json
@@ -67,8 +68,13 @@ public class MainClass {
         }
         //https://www.tabnine.com/code/java/methods/org.flywaydb.core.Flyway/configure
         //Flyway flyway = Flyway.configure().dataSource(dataSource).locations("classpath:db/migration", "filesystem:db/migration").baselineOnMigrate(true).load();
-        Flyway flyway = Flyway.configure().dataSource("jdbc:postgresql://localhost:5432/housemanager", "housemanager", "POIqwe#123").locations("classpath:WEB-INF/flyway").load();
-        flyway.migrate();
+        //TO DO - get connection string from config file
+        /* Flyway flyway = Flyway.configure().dataSource("jdbc:oracle:thin:@localhost:1521/pdb01.endava.net", "user01", "user01").locations("classpath:WEB-INF/flyway").load();
+        flyway.migrate();*/
+        
+        
+        //435696******0781 - huge
+        //402811******5323 - small
         HttpServer server = HttpServer.create(new InetSocketAddress(Integer.parseInt(com.mmc.api.utils.Config.getValueByKey("port"))), 0);
         //HttpsServer server = getHttpsServer(); //In case httpS protocol is wanted
         if (server == null) {

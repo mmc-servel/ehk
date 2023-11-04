@@ -46,6 +46,7 @@ let solution={"sessionid":""};
 
 
 function App() {
+  const [logInText, stateSetLogInText] = useState("Log In");
   const [stateSessionid, stateSetSessionid] = useState("");
   solution.sessionid=stateSessionid;  
   
@@ -53,10 +54,17 @@ function App() {
     stateSetSessionid(p_session);
     console.log("ButtonClisck=",p_session);
     solution.sessionid=stateSessionid;
+    stateSetLogInText("Log Out");
+  }
+  function logOut(){
+    stateSetSessionid("");
+    stateSetLogInText("Log In");
+    console.log("LogOut called");
+    solution.sessionid=stateSessionid;
   }
 
   return (
-    <Masterpage>
+    <Masterpage sessionid={solution.sessionid} logInText={logInText} logOut={logOut}>
       <Switch>
         {solution.sessionid === "" ? ( <Route path="/:p1" exact> <Login onLogin={logIn}/> </Route>) : ( "" )}
             

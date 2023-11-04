@@ -1,10 +1,9 @@
 package com.mmc.pages;
 
-import com.mmc.api.AAPIProcessor;
-import com.mmc.api.HTTPApiResponce;
-import com.mmc.backend.HTTPProcessor;
+import com.mmc.processors.AAPIProcessor;
 import com.mmc.db.DB1;
-import com.mmc.db.Db;
+import com.mmc.responce.AResponce;
+import com.mmc.responce.StringResponce;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -18,23 +17,25 @@ public class Login extends AAPIProcessor {
     }
 
     @Override
-    public HTTPApiResponce processRequest() throws UnsupportedEncodingException, IOException, ClassNotFoundException, SQLException {
+    public AResponce processRequest() throws UnsupportedEncodingException, IOException, ClassNotFoundException {
         DB1 db = new DB1();
-        JSONObject requestBodyJson=getrequestBodyString();
-        return new HTTPApiResponce(db.runAction("sec_login", null, requestBodyJson));
+        JSONObject requestBodyJson = getrequestBodyString();
+        //return new HTTPApiResponce(db.runAction("sec_login", null, requestBodyJson));
+        String dbResponce;
+        try {
+            dbResponce = db.runAction("app_security.getsessionid", null, requestBodyJson);
+            if (dbResponce.startsWith("ERRORMSG=")) {//login faild, the error message comes from DB function
+                return new StringResponce(t, "ERROR", dbResponce.replace("ERRORMSG=", ""), "{}");
+            } else {
+                return new StringResponce(t, "OK", "SuccessMessage", "{\"sessionid\":\"" + dbResponce.replace("SESSIONID=", "") + "\"}");
+            }
+
+        } catch (SQLException ex) {
+
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            return new StringResponce(t, "ERROR", "Service unavailable", "{}");
+        }
 
     }
 }
-
-
-
-
-        /* String ipAddress = t.getRemoteAddress().getAddress().getHostAddress();
-        System.out.println("IP ADDRESS="+ipAddress);
-        JSONObject reqJsonObj = getrequestBodyString();
-        HTTPProcessor.sessionMap.put("aaaaa", "vvvvv");
-        Db db = new Db();
-        String sessionID = db.getSessi(facelonID(reqJsonObj.getString("username"), reqJsonObj.getString("password"));
-        if (sessionID == null) {
-            return new HTTPApiResponce("ERROR", "Invalid user/passwordX.", "{}");
-        }*/

@@ -32,7 +32,17 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-maven-plugin</artifactId>
             <version>8.5.8</version>
-        </dependency>        
+        </dependency>    
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.20.6</version>
+        </dependency>    
+        <!--<dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>4.0.0</version>
+        </dependency> -->
     </dependencies>
             
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
@@ -48,7 +58,7 @@
                             <addClasspath>true</addClasspath>
                             <mainClass>com.mmc.backend.MainClass</mainClass>
                         </manifest>
-                    </archive>
+                    </archive>                              
                 </configuration>
             </plugin>
             <!-- ++++++++++ |buildReact.cmd foe Windows| buildReact.sh for Linux| -->
@@ -69,10 +79,29 @@
                                 <argument>${basedir}/../frontend</argument>
                             </arguments>                                                         
                         </configuration>                                         
-                    </execution>                                                                              
+                    </execution>   
+                    
+                     <execution>
+                         <!-- this is used in ordre to update the  jasperreports_extension.properties 
+                         The problem is that if we just copy the file (we do it below) it is overwrited later by other plugin/phase -->
+                        <id>Add/update prop font file</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>zip</executable>
+                            <arguments>
+                                <argument>-j</argument>
+                                <argument>${basedir}/target/backend-1.0.0-jar-with-dependencies.jar</argument>
+                                <argument>${basedir}/../reports/MyReports/jasperreports_extension.properties</argument>
+                            </arguments>                                                         
+                        </configuration>                                         
+                    </execution> 
+                                                                                                                                                                                              
                 </executions>
             </plugin>             
-            <!-- -->
+             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -118,8 +147,69 @@
                                 </resource>
                             </resources>              
                         </configuration>            
-                    </execution>                       
+                    </execution> 
+                    <execution>
+                        <id>copy-report</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources/WEB-INF/report/</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../reports/MyReports/</directory>                                    
+                                    <includes>
+                                        <include>AuthorizationHistory.jrxml</include>
+                                    </includes>
+                                </resource>
+                            </resources>              
+                        </configuration>            
+                    </execution> 
+                    
+                    <execution>
+                        <id>copy-fonts1</id>                        
+                        <phase>validate</phase> <!-- process-resources  this phase is used ro tun the COPY after -> maven-resources-plugin:3.2.0:resources (default-resources)otherwise the last overwrite the file -->
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory> ${basedir}/../reports/MyReports/ </directory>                                    
+                                    <includes>
+                                        <include>jasperreports_extension.properties</include>
+                                    </includes>
+                                </resource>                              
+                            </resources>
+                            <overwrite>true</overwrite>                   
+                        </configuration>            
+                    </execution> 
+                    
+                    <execution>
+                        <id>copy-fonts2</id>
+                        <!-- here the phase you need -->
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/src/main/resources/fonts</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${basedir}/../reports/MyReports/fonts/</directory>                                    
+                                </resource>
+                            </resources>  
+                            <overwrite>true</overwrite>           
+                        </configuration>            
+                    </execution>                                                                                                                                                                                                        
                 </executions>
+                
+ 
+                     
+                      
             </plugin>   
             <!-- ++++++++++ --> 
             <plugin>   
@@ -132,7 +222,13 @@
                             <includes>
                                 <include>**</include>
                             </includes>
-                        </fileset>                    
+                        </fileset>
+                        <fileset>
+                            <directory>src/main/resources</directory>
+                            <includes>
+                                <include>**/jasperreports_extension.properties</include>
+                            </includes>
+                        </fileset>                                               
                     </filesets>
                 </configuration>
             </plugin>   
@@ -149,6 +245,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                  
                     <archive>
                         <manifest>
                             <mainClass>com.mmc.backend.MainClass</mainClass>
@@ -161,8 +258,9 @@
             </plugin>
             <!-- PLUGIN TO INCLUDE DEPENDENCIES INTO BUILD (end) -->                
         </plugins>
+  
     </build>
     <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     
-        
+    
 </project>

@@ -1,7 +1,8 @@
 package com.mmc.errors;
 
-import com.mmc.api.AAPIProcessor;
-import com.mmc.api.HTTPApiResponce;
+import com.mmc.processors.AAPIProcessor;
+import com.mmc.responce.AResponce;
+import com.mmc.responce.StringResponce;
 import com.sun.net.httpserver.HttpExchange;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -13,8 +14,8 @@ public class InvalidUrl extends AAPIProcessor {
     }
 
     @Override
-    public HTTPApiResponce processRequest() throws UnsupportedEncodingException, IOException {
-        return new HTTPApiResponce("ERROR", "Ivalid request operation.", "{}");
+    public AResponce processRequest() throws UnsupportedEncodingException, IOException {
+        return new StringResponce(t,"ERROR", "Ivalid request operation.", "{}");
     }
 
 }

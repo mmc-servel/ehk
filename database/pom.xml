@@ -29,9 +29,10 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>8.5.8</version>
                 <configuration>
-                    <url> jdbc:postgresql://localhost:5432/housemanager</url>
-                    <user>housemanager</user>
-                    <password>POIqwe#123</password>
+                    <!-- <url> jdbc:postgresql://localhost:5432/housemanager</url> -->
+                    <url> jdbc:oracle:thin:@localhost:1521/pdb01.endava.net</url>
+                    <user>user01</user>
+                    <password>user01</password>
                     <!--
                     <schemas>
                         <schema>PUBLIC</schema>
