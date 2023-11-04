@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function HouseContent(props) {
 
-  const [dummy, setDummy] = useState("General");
+  const [dummy, setDummy] = useState("i1");/* initialization with id1 */
   function refreshContent(page_to_show) {
     setDummy(page_to_show);
     console.log(page_to_show); 
@@ -18,10 +18,10 @@ function HouseContent(props) {
 
     <MenuLine refreshContent={refreshContent} />
 
-    { dummy === "General" ? <General/> : ""}     
+    { dummy === "i1" ? <General/> : ""}     {/* here 'id1'..'id3' comes from filr MenuLine.is props.refreshContent(rrr.currentTarget.id); */}
     
-    { dummy ==="Financiar" ? <Financial/> : ""}  
-    { dummy ==="Istoric" ? <Istoric/> : ""}  
+    { dummy ==="i2" ? <Financial/> : ""}  
+    { dummy ==="i3" ? <Istoric/> : ""}  
     
   </div>
   );

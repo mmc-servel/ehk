@@ -1,9 +1,10 @@
 
 package com.mmc.pages;
 
-import com.mmc.api.AAPIProcessor;
-import com.mmc.api.HTTPApiResponce;
+import com.mmc.processors.AAPIProcessor;
 import com.mmc.db.Db;
+import com.mmc.responce.AResponce;
+import com.mmc.responce.StringResponce;
 import com.sun.net.httpserver.HttpExchange;
 import org.json.JSONObject;
 
@@ -12,11 +13,11 @@ public class ProductDelete extends AAPIProcessor{
         super(t);
     }
     @Override
-    public HTTPApiResponce processRequest() throws Exception {
+    public AResponce processRequest() throws Exception {
         JSONObject reqJsonObj = getrequestBodyString();
         Db db = new Db();
         db.deleteProduct(reqJsonObj.getInt("product_id"));
-        return new HTTPApiResponce("OK", "Product delete success.", "{}");
+        return new StringResponce(t,"OK", "Product delete success.", "{}");
     }
     
 }

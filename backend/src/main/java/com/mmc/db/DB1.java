@@ -12,31 +12,31 @@ import com.mmc.api.utils.Config;
 
 public class DB1 {
 //TO DO: Connection pooling
-    public String runAction(String actionName, String sessionid, JSONObject json) {
-        String arguments = "p_sessionid=>?,";
+
+    public String runAction(String actionName, String sessionid, JSONObject json) throws SQLException, ClassNotFoundException {
+        String arguments = "";//p_sessionid=>?,";
         JSONArray key = json.names();
         for (int i = 0; i < key.length(); ++i) {
             arguments = arguments + "p_" + key.getString(i) + "=>?,";
         }
         arguments = arguments.substring(0, arguments.length() - 1);//remove last comma
 
-        try {
-            Class.forName("org.postgresql.Driver");
-            try ( Connection conn = DriverManager.getConnection(Config.getJson().getJSONObject("postgres").getString("conn_str"), Config.getJson().getJSONObject("postgres").getString("user"), Config.getJson().getJSONObject("postgres").getString("pass"));  
-                    CallableStatement dbFunction = conn.prepareCall("{ ? = call " + actionName + "(" + arguments + ") }")) {
-                dbFunction.registerOutParameter(1, Types.VARCHAR);
-                dbFunction.setString(2, sessionid);
-                for (int i = 0; i < key.length(); ++i) {                    
-                    String keys = key.getString(i);
-                    dbFunction.setString(i + 3, json.getString(keys));
-                }
-                dbFunction.execute();
-                return dbFunction.getString(1);
-            }
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(DB1.class.getName()).log(Level.SEVERE, null, ex);
-            return "{\"responce\":\"ERROR\",\"message\":\"Generic error (checl application logs).\"}";
+        Class.forName("org.postgresql.Driver");
+        Connection conn = DriverManager.getConnection(Config.getJson().getJSONObject("postgres").getString("conn_str"), Config.getJson().getJSONObject("postgres").getString("user"), Config.getJson().getJSONObject("postgres").getString("pass"));
+        System.out.println("DATABSE---> { ? = call " + actionName + "(" + arguments + ") }");
+        CallableStatement dbFunction = conn.prepareCall("{ ? = call " + actionName + "(" + arguments + ") }");
+        dbFunction.registerOutParameter(1, Types.VARCHAR);
+        dbFunction.setString(2, sessionid);
+        for (int i = 0; i < key.length(); ++i) {
+            String keys = key.getString(i);
+            dbFunction.setString(i + 2, json.getString(keys));
         }
+        dbFunction.execute();
+        return dbFunction.getString(1);
+
     }
 
+    public Connection getConnection() throws SQLException{
+        return DriverManager.getConnection(Config.getJson().getJSONObject("postgres").getString("conn_str"), Config.getJson().getJSONObject("postgres").getString("user"), Config.getJson().getJSONObject("postgres").getString("pass"));
+    }
 }
